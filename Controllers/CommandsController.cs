@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using AutoMapper;
 using CLICommander.Data;
+using CLICommander.Dtos;
 using CLICommander.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,17 +14,20 @@ namespace CLICommander.Controllers
     [Route("api/commands")]
     [ApiController] //gives some extra behaviours (makes life easier)
     public class CommandsController : ControllerBase // ControllerBase is enough since Controller itself would bring in view support
-    {
-        private readonly ICLICommanderRepo _repository;
-
-        public CommandsController(ICLICommanderRepo repository)
-        {
-            _repository = repository;
-        }
-
-
+    {   
         // we declare the interface repo here. "_" indicates private as per naming convention
         // "readonly": can be initialized either at the point of runtime, cannot be modified after initialization
+        private readonly ICLICommanderRepo _repository;
+        // declare the AutoMapper instance here
+        private readonly IMapper _mapper;
+
+        // dependencies are injected into "repository" and "mapper" variables
+        public CommandsController(ICLICommanderRepo repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+
 
         /* Mock repo for testing, not needed anymore
         private readonly MockCLICommanderRepo _repository = new MockCLICommanderRepo();
@@ -30,21 +35,45 @@ namespace CLICommander.Controllers
         
         // this action will respond to "GET api/commands"
         [HttpGet] // declaring that this method will respond to GET method
-        public ActionResult<IEnumerable<Command>> GetAllCommands() 
+        public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands() 
         {
             var commandItems = _repository.GetAllCommands();
 
             // return HTTP 200 OK result and commandItems
-            return Ok(commandItems);
+            return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(commandItems)); // map the Command type items into CommandReadDto type instances
         }
 
         // adding "{id}" gives us a route to this unique action result (specific command), respond to: "GET api/commands/id"
-        [HttpGet("{id}")] // as this one and above method both respond to GET action (same verb), their URI must be differentiated
-        public ActionResult<Command> GetCommandById(int id) // this "id" comes from the request we pass in via the URI (Postman) by default of [ApiController] we set previously
+        [HttpGet("{id}", Name="GetCommandById")] // as this one and above method both respond to GET action (same verb), their URI must be differentiated
+        public ActionResult<CommandReadDto> GetCommandById(int id) // this "id" comes from the request we pass in via the URI (Postman) by default of [ApiController] we set previously
         {
             var commandItem = _repository.GetCommandById(id); // id resolved from the request string
 
-            return Ok(commandItem);
+            if (commandItem != null)
+            {
+                return Ok(_mapper.Map<CommandReadDto>(commandItem)); // same as above
+            }
+            else
+            {
+            return NotFound(); //if the specified id doesn't exist, it will return not found
+            }
+        }
+
+        // this action will respond to "POST api/commands"
+        [HttpPost]
+        public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
+        {
+            var commandModel = _mapper.Map<Command>(commandCreateDto); // map from commandCreateDto to Command type instance. Returns mapped object
+            _repository.CreateCommand(commandModel); // create the model in db context
+            _repository.SaveChanges();  // save the changes so that the object will be created in actual database
+
+            // return a read dto (what we needed)
+            var commandReadDto = _mapper.Map<CommandReadDto>(commandModel);
+
+            // by REST principle, it should also send back URI + HTTP 201 code, so we use CreatedAtRoute() here (pass back both the object and the location of where it was created)
+            return CreatedAtRoute(nameof(GetCommandById), new {Id = commandReadDto.Id}, commandReadDto);
+
+            //return Ok(commandReadDto); // will return the item and code 200
         }
     }
 }

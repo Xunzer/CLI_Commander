@@ -27,5 +27,16 @@ namespace CLICommander.Data
             // return the mocked database data
             return new Command{Id=id, HowTo="Cook a steak", Line="Heat up the pan", Platform="Cutting board & Pan"};
         }
+
+        public void CreateCommand(Command cmd)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool SaveChanges()
+        {
+            throw new System.NotImplementedException();
+        }
+
     }
 }
