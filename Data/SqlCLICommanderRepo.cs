@@ -45,5 +45,11 @@ namespace CLICommander.Data
         {
             return (_context.SaveChanges() > 0); // if greater than 0, that means some entries have been successfully saved (action succeeded)
         }
+
+        // this is the PUT action endpoint method
+        public void UpdateCommand(Command cmd)
+        {
+            // Nothing due to the nature and implementation of our database
+        }
     }
 }

@@ -16,6 +16,9 @@ namespace CLICommander.Profiles
 
             // map the created Dto to an actual Command object
             CreateMap<CommandCreateDto, Command>();
+
+            // map the update Dto to a Command object (for PUT)
+            CreateMap<CommandUpdateDto, Command>();
         }
     }
 }

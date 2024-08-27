@@ -43,7 +43,7 @@ namespace CLICommander.Controllers
             return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(commandItems)); // map the Command type items into CommandReadDto type instances
         }
 
-        // adding "{id}" gives us a route to this unique action result (specific command), respond to: "GET api/commands/id"
+        // adding "{id}" gives us a route to this unique action result (specific command), respond to: "GET api/commands/{id}"
         [HttpGet("{id}", Name="GetCommandById")] // as this one and above method both respond to GET action (same verb), their URI must be differentiated
         public ActionResult<CommandReadDto> GetCommandById(int id) // this "id" comes from the request we pass in via the URI (Postman) by default of [ApiController] we set previously
         {
@@ -74,6 +74,31 @@ namespace CLICommander.Controllers
             return CreatedAtRoute(nameof(GetCommandById), new {Id = commandReadDto.Id}, commandReadDto);
 
             //return Ok(commandReadDto); // will return the item and code 200
+        }
+
+        // this action will respond to "PUT api/commands/{id}". As we only return HTTP code 204, return type is "ActionResult"
+        [HttpPut("{id}")]
+        public ActionResult UpdateCommand(int id, CommandUpdateDto commandUpdateDto)
+        {
+            var commandModelFromRepo = _repository.GetCommandById(id);
+
+            // check if specified model exists, if not return 404
+            if (commandModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            // map the newly created update model to the specified one from repo. This updates dbcontext directly
+            _mapper.Map(commandUpdateDto, commandModelFromRepo);
+
+            // still needs to call the update method although there is nothing inside the body, as some implementations may require calling it
+            _repository.UpdateCommand(commandModelFromRepo);
+
+            // save the changes in database
+            _repository.SaveChanges();
+
+            // return HTTP 204 No Content as per design
+            return NoContent();
         }
     }
 }

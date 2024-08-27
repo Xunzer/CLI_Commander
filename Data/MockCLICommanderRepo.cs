@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using CLICommander.Models;
 
-// this is a mock repository and is not used in the final product, mainly for testing purpose
+// this is a mock repository and is not used in the final product, mainly for testing purpose as a template. As such, most of the methods were not completed
 // "Data" is the repository of the application
 namespace CLICommander.Data
 {   
@@ -38,5 +38,9 @@ namespace CLICommander.Data
             throw new System.NotImplementedException();
         }
 
+        public void UpdateCommand(Command cmd)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
