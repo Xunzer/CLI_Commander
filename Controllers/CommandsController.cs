@@ -5,6 +5,7 @@ using CLICommander.Dtos;
 using CLICommander.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 // for decoupling purpose: we use this controller class to access the repository's implemented class and then that class would access the database
 namespace CLICommander.Controllers
@@ -35,6 +36,7 @@ namespace CLICommander.Controllers
         */
         
         // this action will respond to "GET api/commands"
+        [SwaggerOperation(Summary = "Get all available commands.")] // Swagger annotation for the UI
         [HttpGet] // declaring that this method will respond to GET method
         public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands() 
         {
@@ -45,6 +47,7 @@ namespace CLICommander.Controllers
         }
 
         // adding "{id}" gives us a route to this unique action result (specific command), respond to: "GET api/commands/{id}"
+        [SwaggerOperation(Summary = "Get specified command by id.")]
         [HttpGet("{id}", Name="GetCommandById")] // as this one and above method both respond to GET action (same verb), their URI must be differentiated
         public ActionResult<CommandReadDto> GetCommandById(int id) // this "id" comes from the request we pass in via the URI (Postman) by default of [ApiController] we set previously
         {
@@ -61,6 +64,7 @@ namespace CLICommander.Controllers
         }
 
         // this action will respond to "POST api/commands"
+        [SwaggerOperation(Summary = "Create a command. Please provide following attributes: \"howTo\" is the description of command, \"line\" is the code of the command, and \"platform\" is the application platform of the command.")]
         [HttpPost]
         public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
         {
@@ -78,6 +82,7 @@ namespace CLICommander.Controllers
         }
 
         // this action will respond to "PUT api/commands/{id}". As we only return HTTP code 204, return type is "ActionResult"
+        [SwaggerOperation(Summary = "Replace the content of specified command by id with content you provide.")]
         [HttpPut("{id}")]
         public ActionResult UpdateCommand(int id, CommandUpdateDto commandUpdateDto)
         {
@@ -103,6 +108,7 @@ namespace CLICommander.Controllers
         }
 
         // this action will respond to "PATCH api/commands/{id}". The JSON Patch document will operate on "CommandUpdateDto" type object
+        [SwaggerOperation(Summary = "Partially replace the content of the command. \"op\" is the operation you want to perform, \"path\" is the name of attributes and \"value\" is the new content you want for it. Note for \"path\" you need to add a \"/\" in front of the specified attribute, for .")]
         [HttpPatch("{id}")]
         public ActionResult PartialUpdateCommand(int id, JsonPatchDocument<CommandUpdateDto> patchDoc)
         {   
@@ -140,6 +146,7 @@ namespace CLICommander.Controllers
         }
 
         // this action will respond to "DELETE api/commands/{id}"
+        [SwaggerOperation(Summary = "Delete the specified command by id.")]
         [HttpDelete("{id}")]
         public ActionResult DeleteCommand(int id)
         {

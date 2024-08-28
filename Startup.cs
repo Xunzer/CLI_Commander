@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using Microsoft.OpenApi.Models;
 
 namespace CLICommander
 {
@@ -44,6 +45,26 @@ namespace CLICommander
 
             // add automapper through dependency injection to the rest of our application for data transfer objects (DTO)
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // enable Swagger UI
+            services.AddSwaggerGen(c => {
+                c.EnableAnnotations();
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Ryu's CLI Commander API",
+                    Description = "A simple ASP.NET Core Web API for storing commands",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Bipbos",
+                        Email = string.Empty,
+                        Url = new Uri("https://github.com/Xunzer")
+                    }
+                });
+            });
+
+            // configure Swagger to use Newtonsoft.Json for JSON serialization and deserialization
+            services.AddSwaggerGenNewtonsoftSupport();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +79,18 @@ namespace CLICommander
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            // enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // enable middleware to serve swagger-ui (HTML, JS, CSS, etc.)
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CLI Commander API V1");
+                c.RoutePrefix = string.Empty;               
+            });
 
             app.UseEndpoints(endpoints =>
             {

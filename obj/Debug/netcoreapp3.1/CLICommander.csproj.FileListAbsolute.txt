@@ -65,3 +65,10 @@ C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\S
 C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\obj\Debug\netcoreapp3.1\CLICommander.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Annotations.dll
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Newtonsoft.dll
