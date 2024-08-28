@@ -19,7 +19,10 @@ namespace CLICommander.Data
         // create a Command object (POST)
         void CreateCommand(Command cmd);
 
-        // Update a Command object (PUT)
+        // update a Command object (PUT)
         void UpdateCommand(Command cmd);
+
+        // delete a Command object (DELETE)
+        void DeleteCommand(Command cmd);
     }
 }

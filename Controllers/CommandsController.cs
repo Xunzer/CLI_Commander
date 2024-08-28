@@ -130,12 +130,32 @@ namespace CLICommander.Controllers
             // map the newly patched dto model to the specified one from repo. This updates dbcontext directly
             _mapper.Map(commandForPatch, commandModelFromRepo);
 
-            // redundant empty update command called per standard
+            // redundant empty update command called per standard then save the changes
             _repository.UpdateCommand(commandModelFromRepo);
 
             _repository.SaveChanges();
 
             // return HTTP 204 No Content as per design
+            return NoContent();
+        }
+
+        // this action will respond to "DELETE api/commands/{id}"
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCommand(int id)
+        {
+            var commandModelFromRepo = _repository.GetCommandById(id);
+
+            // check if specified model exists, if not return 404
+            if (commandModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            
+            // delete the specified model and save the changes
+            _repository.DeleteCommand(commandModelFromRepo);
+
+            _repository.SaveChanges();
+
             return NoContent();
         }
     }

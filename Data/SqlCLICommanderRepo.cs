@@ -51,5 +51,17 @@ namespace CLICommander.Data
         {
             // Nothing due to the nature and implementation of our database
         }
+
+        // DELETE endpoint. No need for a DTO as we are passing in the id of the object
+        public void DeleteCommand(Command cmd)
+        {
+            if (cmd == null)
+            {
+                throw new ArgumentNullException(nameof(cmd));
+            }
+
+            // remove specified Command model from dbcontext
+            _context.Commands.Remove(cmd);
+        }
     }
 }
