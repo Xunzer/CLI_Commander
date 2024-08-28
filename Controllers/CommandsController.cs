@@ -3,6 +3,7 @@ using AutoMapper;
 using CLICommander.Data;
 using CLICommander.Dtos;
 using CLICommander.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 // for decoupling purpose: we use this controller class to access the repository's implemented class and then that class would access the database
@@ -88,13 +89,50 @@ namespace CLICommander.Controllers
                 return NotFound();
             }
 
-            // map the newly created update model to the specified one from repo. This updates dbcontext directly
+            // map the newly created update dto model to the specified one from repo. This updates dbcontext directly
             _mapper.Map(commandUpdateDto, commandModelFromRepo);
 
             // still needs to call the update method although there is nothing inside the body, as some implementations may require calling it
             _repository.UpdateCommand(commandModelFromRepo);
 
             // save the changes in database
+            _repository.SaveChanges();
+
+            // return HTTP 204 No Content as per design
+            return NoContent();
+        }
+
+        // this action will respond to "PATCH api/commands/{id}". The JSON Patch document will operate on "CommandUpdateDto" type object
+        [HttpPatch("{id}")]
+        public ActionResult PartialUpdateCommand(int id, JsonPatchDocument<CommandUpdateDto> patchDoc)
+        {   
+            var commandModelFromRepo = _repository.GetCommandById(id);
+                        
+            // check if specified model exists, if not return 404
+            if (commandModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            // as we have the patch document from client, we need to add the patch to the specified object. Here we map the specified Command object to an update dto
+            var commandForPatch = _mapper.Map<CommandUpdateDto>(commandModelFromRepo);
+
+            // apply the patch. Make sure the object conforms to validations
+            patchDoc.ApplyTo(commandForPatch, ModelState);
+
+            // validation check for the object
+            if(!TryValidateModel(commandForPatch))
+            {   
+                // if validation fails, the code returns a ValidationProblem with the current ModelState, which contains all the validation errors
+                return ValidationProblem(ModelState);
+            }
+
+            // map the newly patched dto model to the specified one from repo. This updates dbcontext directly
+            _mapper.Map(commandForPatch, commandModelFromRepo);
+
+            // redundant empty update command called per standard
+            _repository.UpdateCommand(commandModelFromRepo);
+
             _repository.SaveChanges();
 
             // return HTTP 204 No Content as per design

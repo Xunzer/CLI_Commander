@@ -62,3 +62,6 @@ C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\obj\Debug\netcoreapp3.1\C
 C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

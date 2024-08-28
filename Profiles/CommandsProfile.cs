@@ -11,14 +11,17 @@ namespace CLICommander.Profiles
         {   
             // logic for CreateMap: <Source -> Target>
 
-            // map from Command to ReadDto using AutoMapper
+            // map from Command to ReadDto using AutoMapper (for GET)
             CreateMap<Command, CommandReadDto>();
 
-            // map the created Dto to an actual Command object
+            // map the created Dto to an actual Command object (for POST)
             CreateMap<CommandCreateDto, Command>();
 
             // map the update Dto to a Command object (for PUT)
             CreateMap<CommandUpdateDto, Command>();
+
+            // map the Command object to an update Dto (for PATCH)
+            CreateMap<Command, CommandUpdateDto>();
         }
     }
 }

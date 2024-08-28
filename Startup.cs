@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 namespace CLICommander
 {
@@ -30,8 +31,9 @@ namespace CLICommander
             // configure our DbContext class for uses within rest of app. Through dependency injection (config for connection string), we add dbcontext to the service container
             services.AddDbContext<CLICommanderContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("CLICommanderConnection")));
 
-            // adding the controller for commands
-            services.AddControllers();
+            // adding the controller for commands, also adding the configurations on the JSON serialization settings for controller so that all property names in the serialized JSON follow camel case naming conventions
+            services.AddControllers().AddNewtonsoftJson(s => {
+            s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();});
 
             /* for mock repo dependency injection
             services.AddScoped<ICLICommanderRepo, MockCLICommanderRepo>();
