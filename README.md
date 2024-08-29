@@ -23,7 +23,7 @@
 - Azure (Deployed Docker Image and moved SQL Database from local)
 
 ### Application Architecture:
-![Application Architecture]()
+![Application_Architecture](https://github.com/user-attachments/assets/4042fca6-601e-452e-9678-949bf12eb564)
 
 ### API Endpoints (CRUD):
 | URI                | Verb        | Operation   | Description                | Success          | Failure                             |
@@ -36,4 +36,8 @@
 |/api/commands/{id}  |DELETE       |DELETE       |Delete a single resource    |204 No Content    |..                                   |
 
 ### Website UI:
-![Website UI]()
+![Website_UI](https://github.com/user-attachments/assets/1ecf4ac8-7974-4628-ae70-f22fd67cc0ae)
+
+### Testing with Postman:
+#### [HttpGet] Returns all commands and a "200 OK" status code.
+![Postman_Test](https://github.com/user-attachments/assets/bb794e6b-57ab-4524-b81e-e8501a87ab92)
