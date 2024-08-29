@@ -22,6 +22,9 @@
 - Docker (image, container and delopyed on Docker Hub)
 - Azure (Deployed Docker Image and moved SQL Database from local)
 
+### Application Architecture:
+![Application Architecture]()
+
 ### API Endpoints (CRUD):
 | URI                | Verb        | Operation   | Description                | Success          | Failure                             |
 |:------------------ |:----------- |:----------- |:-------------------------- |:-------------    |:----------------------------------- |
@@ -31,3 +34,6 @@
 |/api/commands/{id}  |PUT          |UPDATE       |Update an entire resource   |204 No Content    |..                                   |
 |/api/commands/{id}  |PATCH        |UPDATE       |Update partial resource     |204 No Content    |..                                   |
 |/api/commands/{id}  |DELETE       |DELETE       |Delete a single resource    |204 No Content    |..                                   |
+
+### Website UI:
+![Website UI]()
