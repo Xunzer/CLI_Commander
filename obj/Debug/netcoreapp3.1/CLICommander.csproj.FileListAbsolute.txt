@@ -72,4 +72,3 @@ C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\S
 C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\obj\Debug\netcoreapp3.1\CLICommander.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Newtonsoft.dll
-C:\Users\MSI-PC\Desktop\code\MVC_REST_API\CLICommander\bin\Debug\netcoreapp3.1\appsettings.Production.json

@@ -15,5 +15,4 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
 EXPOSE 80
 COPY --from=build-env /app/out .
-ENV ASPNETCORE_ENVIRONMENT=Production
 ENTRYPOINT [ "dotnet", "CLICommander.dll"]
