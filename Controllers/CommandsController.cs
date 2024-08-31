@@ -108,7 +108,7 @@ namespace CLICommander.Controllers
         }
 
         // this action will respond to "PATCH api/commands/{id}". The JSON Patch document will operate on "CommandUpdateDto" type object
-        [SwaggerOperation(Summary = "Partially replace the content of the command. \"op\" is the operation you want to perform, \"path\" is the name of attributes and \"value\" is the new content you want for it. Note for \"path\" you need to add a \"/\" in front of the specified attribute, for .")]
+        [SwaggerOperation(Summary = "Partially replace the content of the command. \"op\" is the operation you want to perform, \"path\" is the name of attributes and \"value\" is the new content you want for it. Note for \"path\" you need to add a \"/\" in front of the specified attribute, replace \"from\" with \"value\" and specify its content.")]
         [HttpPatch("{id}")]
         public ActionResult PartialUpdateCommand(int id, JsonPatchDocument<CommandUpdateDto> patchDoc)
         {   
